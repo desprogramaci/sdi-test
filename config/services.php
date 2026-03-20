@@ -39,4 +39,8 @@ return [
         'key' => env('IA_PROVIDER_KEY'),
     ],
 
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+    ],
+
 ];

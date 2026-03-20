@@ -37,8 +37,6 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            // Valor por defecto para desarrollo/seeds,
-            // en los tests lo sobreescribimos con el ID del rol creado.
             'role_id' => 1,
         ];
     }

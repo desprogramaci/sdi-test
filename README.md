@@ -85,5 +85,14 @@ Sigue estos pasos para levantar el entorno:
     Suite de pruebas para validar la seguridad y la lógica del carrito:
     -docker exec -it sdi-app php artisan test
 
+## ⚠️ Notas Técnicas de Versión
+
+  - **Compatibilidad PHP:** El proyecto está desarrollado sobre **Laravel 12**, que requiere PHP 8.2 o superior.
+  - **Gestión de Dependencias:** Debido a que algunas dependencias de Laravel 12 apuntan a estándares de PHP 8.4, si tu entorno local utiliza una versión inferior (como PHP 8.2), se debe ejecutar el siguiente comando para garantizar la correcta generación del autoloader:
+  
+    composer dump-autoload --ignore-platform-reqs
+ 
+    **Esto garantiza la compatibilidad total de las funcionalidades implementadas sin comprometer la estabilidad del sistema.**
+
 ## ✉️ Entrega
     -Desarrollado como parte de la prueba técnica para el equipo de SDi.

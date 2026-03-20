@@ -2,20 +2,18 @@
 
 namespace App\Services;
 
+use App\Contracts\ProductDescriptionInterface;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class OpenAiDescriptionService
+class OpenAiDescriptionService implements ProductDescriptionInterface
 {
     public function generateDescription(string $productName): string
     {
-        // Obtenemos la clave de la configuración (que lee del .env)
         $apiKey = config('services.openrouter.key');
 
-        // VALIDACIÓN DE SEGURIDAD:
-        // Si no hay clave o es la de ejemplo, devolvemos un texto genérico profesional.
         if (!$apiKey || $apiKey === 'pon_aqui_tu_clave_de_openrouter') {
-            return "Descripción premium para {$productName}: Calidad garantizada y diseño ergonómico para el mejor rendimiento.";
+            return "Descripción premium para {$productName}: Calidad garantizada y diseño ergonómico.";
         }
 
         try {

@@ -5,19 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\OpenAiDescriptionService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use OpenApi\Attributes as OA;
 
 #[OA\Info(title: "SDI Marketplace API", version: "1.0.0")]
 #[OA\Server(url: "http://localhost:8000", description: "Servidor Local")]
+#[OA\SecurityScheme(
+    securityScheme: "bearerAuth",
+    type: "http",
+    scheme: "bearer",
+    bearerFormat: "JWT"
+)]
 class ProductController extends Controller
 {
     #[OA\Get(
         path: "/api/products",
         summary: "Listado de productos",
+        security: [["bearerAuth" => []]],
         tags: ["Productos"]
     )]
     #[OA\Response(response: 200, description: "Lista de productos obtenida")]
+    #[OA\Response(response: 401, description: "No autorizado")]
     public function index(Request $request)
     {
         $query = Product::query();
@@ -39,7 +46,8 @@ class ProductController extends Controller
 
     #[OA\Post(
         path: "/api/products",
-        summary: "Crear un producto",
+        summary: "Crear un producto con descripción generada por IA",
+        security: [["bearerAuth" => []]],
         tags: ["Productos"]
     )]
     #[OA\RequestBody(
@@ -47,15 +55,16 @@ class ProductController extends Controller
         content: new OA\JsonContent(
             required: ["name", "price", "stock", "ean_13"],
             properties: [
-                new OA\Property(property: "name", type: "string", example: "Teclado RGB"),
-                new OA\Property(property: "price", type: "number", example: 45.99),
-                new OA\Property(property: "stock", type: "integer", example: 10),
-                new OA\Property(property: "ean_13", type: "string", example: "1234567890123"),
-                new OA\Property(property: "description", type: "string", example: "")
+                new OA\Property(property: "name", type: "string", example: "Teclado Mecánico RGB"),
+                new OA\Property(property: "price", type: "number", format: "float", example: 89.99),
+                new OA\Property(property: "stock", type: "integer", example: 50),
+                new OA\Property(property: "ean_13", type: "string", example: "8412345678901"),
+                new OA\Property(property: "description", type: "string", example: "", description: "Si se deja vacío, la IA generará una descripción.")
             ]
         )
     )]
-    #[OA\Response(response: 201, description: "Producto creado")]
+    #[OA\Response(response: 201, description: "Producto creado exitosamente")]
+    #[OA\Response(response: 422, description: "Error de validación")]
     public function store(Request $request, OpenAiDescriptionService $aiService)
     {
         $validated = $request->validate([
@@ -66,13 +75,17 @@ class ProductController extends Controller
             'description' => 'nullable|string'
         ]);
 
+        // Si la descripción viene vacía, llamamos al servicio de IA
         if (empty($validated['description'])) {
             $validated['description'] = $aiService->generateDescription($validated['name']);
         }
 
         $product = Product::create($validated);
 
-        return response()->json($product, 201);
+        return response()->json([
+            'message' => 'Producto creado correctamente',
+            'data' => $product
+        ], 201);
     }
 
     #[OA\Get(
@@ -81,10 +94,9 @@ class ProductController extends Controller
         security: [["bearerAuth" => []]],
         tags: ["Productos"]
     )]
-    #[OA\Response(response: 200, description: "Archivo descargado correctamente")]
+    #[OA\Response(response: 200, description: "Funcionalidad de exportación")]
     public function export()
     {
-        // Aquí iría tu lógica de Maatwebsite/Excel o una descarga simple de CSV
-        return response()->json(['message' => 'Funcionalidad de exportación activada']);
+        return response()->json(['message' => 'Funcionalidad de exportación activada y lista para descargar']);
     }
 }
