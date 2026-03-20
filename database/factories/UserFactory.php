@@ -8,17 +8,24 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * El nombre del modelo correspondiente al factory.
+     *
+     * @var string
+     */
+    protected $model = User::class;
+
+    /**
+     * La contraseña que se usará para el factory.
      */
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * Define el estado por defecto del modelo.
      *
      * @return array<string, mixed>
      */
@@ -30,11 +37,14 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            // Valor por defecto para desarrollo/seeds,
+            // en los tests lo sobreescribimos con el ID del rol creado.
+            'role_id' => 1,
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Indica que el correo electrónico del modelo no ha sido verificado.
      */
     public function unverified(): static
     {

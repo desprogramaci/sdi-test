@@ -32,7 +32,7 @@ Esta es una solución robusta para una API REST desarrollada con **Laravel 11**,
 Sigue estos pasos para levantar el entorno:
 
 1. **Clonar el repositorio:**
-   git clone <tu-repositorio-url>
+   git clone https://github.com/desprogramaci/sdi-test.git
    cd sdi-test
 
 2. **Configurar el entorno:**

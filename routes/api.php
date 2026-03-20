@@ -14,6 +14,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/products/export', [ProductController::class, 'export']);
 
     // Carrito
+    Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart/add', [CartController::class, 'add']);
     Route::post('/cart/checkout', [CartController::class, 'checkout']);
 });
