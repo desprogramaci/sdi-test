@@ -42,7 +42,7 @@ Sigue estos pasos para levantar el entorno:
     docker-compose up -d
 
 4. **Instalar dependencias y preparar base de datos:**
-    docker exec -it sdi-app composer install
+    docker exec -it sdi-app composer install --ignore-platform-reqs
     docker exec -it sdi-app php artisan key:generate
     docker exec -it sdi-app php artisan jwt:secret
     docker exec -it sdi-app php artisan migrate --seed
