@@ -1,6 +1,6 @@
 # 🛒 SDI Marketplace API - Backend Challenge
 
-Esta es una solución robusta para una API REST desarrollada con **Laravel 11**, diseñada para la gestión integral de un marketplace. El proyecto implementa seguridad JWT, lógica de negocio para carritos, integración con IA y documentación automatizada.
+Esta es una solución robusta para una API REST desarrollada con **Laravel 12.55.1**, diseñada para la gestión integral de un marketplace. El proyecto implementa seguridad JWT, lógica de negocio para carritos, integración con IA y documentación automatizada.
 
 ---
 
