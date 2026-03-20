@@ -1,0 +1,62 @@
+# --- Directorios de Dependencias ---
+/vendor
+/node_modules
+
+# --- Configuración y Secretos (CRÍTICO no subirlos) ---
+.env
+.env.backup
+.env.production
+.phpactor.json
+auth.json
+Homestead.json
+Homestead.yaml
+
+# --- Almacenamiento y Logs de Laravel ---
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/app/public/*
+/storage/pail
+
+# --- Específico de L5-Swagger (La documentación se genera en destino) ---
+/storage/api-docs/*
+
+# --- Assets y Compilación ---
+/public/build
+/public/hot
+/public/storage
+/public/storage/*
+/public/mix-manifest.json
+
+# --- Testing y Caché de Herramientas ---
+.phpunit.result.cache
+/.phpunit.cache
+.php-cs-fixer.cache
+.phpunit.result.cache
+
+# --- IDEs y Editores de Código ---
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Sistema Operativo ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Logs generales ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
